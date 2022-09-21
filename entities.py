@@ -24,6 +24,7 @@ class Reviews:
 # user entity
 class User:
 
+    # initializing components of user entity
     def __init__(self, id = 0, username = "", email = "", password = "", account_bal = 0):
         self.id = id
         self.username = username
