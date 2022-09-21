@@ -14,3 +14,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+class Reviews(db.Model):
+    rating = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String(300), unique=False, nullable=False)
