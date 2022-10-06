@@ -33,7 +33,7 @@ class Reviews:
 # bookings entity
 class Bookings:
     # initializing components of reviews entity
-    def __init__(self, verification = "", date = "", duration = ""):
+    def __init__(self, verification = "", date = "", duration = "", is_paid = ""):
          self.verification = verification
          self.date = date
          self.duration = duration
