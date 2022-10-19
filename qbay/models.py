@@ -49,7 +49,7 @@ db.create_all()
 
 
 
-def register(name, email, password):
+def register(name, email, password, billing_address, postal_code,account_bal):
     '''
     R1-7
         If the email has been used, the operation failed.
@@ -64,18 +64,23 @@ def register(name, email, password):
       Returns:
         True if registration succeeded otherwise False
     '''
-
+    
     # check if the email has been used:
     existed = User.query.filter_by(email=email).all()
     if len(existed) > 0:
         return False
 
+ 
+    
     # create a new user
     user = User(username=name, email=email, password=password)
+    if (email == "" and password ==""):
+        return False
     # add it to the current database session
     db.session.add(user)
     db.session.commit()
-
+    
+    
     
     
     return True
