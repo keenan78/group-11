@@ -1,5 +1,5 @@
 from curses.ascii import isalnum, isalpha
-from xxlimited import new
+#from xxlimited import new
 from qbay import app
 from flask_sqlalchemy import SQLAlchemy
 
@@ -160,9 +160,10 @@ def email_helper(email):
       Parameters:
         email (string): user email
     '''
-    regex = re.compile("^[a-zA-Z0-9-._]+@[a-zA-Z0-9]+\.[a-z]{1,3}$")
+    
+    regex = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Z|a-z]{1,3}')
     #the email meets the requirements
-    if (re.match(regex, email)): 
+    if (re.fullmatch(regex, email)): 
         return True
     else:
         return False
@@ -170,7 +171,7 @@ def email_helper(email):
     
 #R1-4
 def password_helper(password):
-    '''
+    ''')
     R1-1:
     Email cannot be empty. password cannot be empty.
     R1-4:
@@ -204,13 +205,13 @@ def password_helper(password):
         if (len(password) >= 6):  
             #more than one uppercase, lowercase and special characters
             if (count_u >=1 and count_l >=1 and count_s >= 1):  
-                return True
+                return password
             else:
-                return False
+                return None
         else:
-            return False
+            return None
     else:
-        return False
+        return None
      
     
 #R1-5 and 
