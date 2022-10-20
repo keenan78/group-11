@@ -1,4 +1,4 @@
-from qbay.models import register, login, username_helper, postal_code_helper, update, email_helper, password_helper, user_id_helper
+from qbay.models import register, login, username_helper, postal_code_helper, update, email_helper, password_helper, user_id_helper, register_helper
 
 def test_r1_7_user_register():
   '''
@@ -104,7 +104,7 @@ def test_r1_1_register():
   '''
   Testing R1-1: Email cannot be empty. password cannot be empty.
   '''
-  assert register('', 'jill_mitchell@outlook.com', '') is False
+  assert register('hi', 'jill_mitchell@outlook.com', '') is False
 
 
 def test_r1_2_user_id_helper():

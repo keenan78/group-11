@@ -49,7 +49,7 @@ db.create_all()
 
 
 
-def register(name, email, password, billing_address, postal_code,account_bal):
+def register(name, email, password):
     '''
     R1-7
         If the email has been used, the operation failed.
@@ -73,15 +73,22 @@ def register(name, email, password, billing_address, postal_code,account_bal):
  
     
     # create a new user
-    user = User(username=name, email=email, password=password)
-    if (email == "" and password ==""):
-        return False
+    user = User(username=name, email=email, password=password )
+
     # add it to the current database session
     db.session.add(user)
     db.session.commit()
     
+    register_helper(name, email,password)
     
-    
+    return True
+
+def register_helper(name, email, password):
+    #check if email is empty
+    if email ==  "":
+        return False
+    if password == "":
+        return False
     
     return True
 
