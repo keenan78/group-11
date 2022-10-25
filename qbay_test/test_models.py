@@ -216,8 +216,14 @@ def test_r1_2_user_id():
   '''
   Testing R1-2: A user is uniquely identified by his/her user id - automatically generated.
   '''
-  assert register(1,'jerry100','jerry@outlook.com','Good#1234') is None
-  user = register(12,'jerry100','jerry@outlook.com','Good#1234') is None
+  user = register(0, 'jerry100', 'jerry@outlook.com', 'Good#1234')
+  assert user is not None
+  assert user.email == 'jerry@outlook.com'
+  user = register(user.id, 'jerry100', 'jerry@outlook.com', 'Good#1234')
+  assert user is not None
+  assert user.email == 'jerry@outlook.com'
+  user = register(user.id, 'jerry111', 'jerry@outlook.com', 'Good#1234')
+  assert user is None
   
 
 def test_r1_3_email_helper():

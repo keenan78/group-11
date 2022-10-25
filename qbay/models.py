@@ -10,6 +10,7 @@ import datetime as dt
 import string
 import re
 import random
+from sqlalchemy import func
 
 
 '''
@@ -99,7 +100,8 @@ def register(id, name, email, password):
         user = User(id=id, username=name, email=email, password=password)
         
         #r1_2 
-        # owner_id = id(user)  
+        max_id= db.session.query(func.max(user.id)).scalar()
+        id = max_id + 1
 
         # add it to the current database session
         db.session.add(user)
