@@ -1,3 +1,4 @@
+from enum import unique
 from genericpath import exists
 from sqlalchemy import PrimaryKeyConstraint
 from qbay import app
@@ -89,19 +90,23 @@ def register(id, name, email, password):
     existed = User.query.filter_by(email=email).all()
     if len(existed) > 0:
         return None
+
+    existed = User.query.filter_by(id=id).all()
+    if len(existed) > 0:
+        return None
     
     #check if email is empty
     if email ==  '' or password == '':
         return None
-    #if password == "":
-     #   return None
     else:
-        # create a new user
-        user = User(id=id, username=name, email=email, password=password)
-        
         #r1_2 
-        max_id= db.session.query(func.max(user.id)).scalar()
-        id = max_id + 1
+        if id is not None:
+            # create a new user
+            user = User(id=id, username=name, email=email, password=password)
+        else:
+            max_id= db.session.query(func.max(User.id)).scalar()
+            next_id = max_id + 1
+            user = User(id=next_id, username=name, email=email, password=password)
 
         # add it to the current database session
         db.session.add(user)

@@ -21,7 +21,7 @@ def test_r1_8_user_register():
   '''
   Testing R1-8: Shipping address is empty at the time of registration.
   '''
-  user = register(1, 'user1', 'test@test.com', 'Abcdef!')
+  user = register(None, 'user1', 'test@test.com', 'Abcdef!')
   assert user is not None
   assert user.billing_address == ''
 
@@ -135,7 +135,7 @@ def test_r1_9_user_register():
   '''
   Testing R1-9: Postal code is empty at the time of registration.
   '''
-  user = register(3, 'user3', 'testemail@test.com', 'Abcdef!')
+  user = register(None, 'user3', 'testemail@test.com', 'Abcdef!')
   assert user is not None
   assert user.postal_code == ''
 
@@ -145,7 +145,7 @@ def test_r1_10_user_register():
   Testing R1-10: Balance should be initialized as 100 at the time of registration. 
   (free $100 dollar signup bonus).
   '''
-  user = register(4, 'user4', 'testEmail@test.com', 'Abcdef!')
+  user = register(None, 'user4', 'testEmail@test.com', 'Abcdef!')
   assert user is not None
   assert user.account_bal == 100
 
@@ -206,9 +206,9 @@ def test_r1_1_register():
   '''
   Testing R1-1: Email cannot be empty. password cannot be empty.
   '''
-  assert register(1,'jill1_123','jill_mitchell@outlook.com','') is None
-  assert register(3,'jill3_123','','Good#1234') is None
-  user = register(2,'jill2_123','jill_m@outlook.com','Good#1234')
+  assert register(None,'jill1_123','jill_mitchell@outlook.com','') is None
+  assert register(None,'jill3_123','','Good#1234') is None
+  user = register(None,'jill2_123','jill_m@outlook.com','Good#1234')
   assert user is not None
 
 
@@ -216,14 +216,21 @@ def test_r1_2_user_id():
   '''
   Testing R1-2: A user is uniquely identified by his/her user id - automatically generated.
   '''
-  user = register(0, 'jerry100', 'jerry@outlook.com', 'Good#1234')
-  assert user is not None
-  assert user.email == 'jerry@outlook.com'
-  user = register(user.id, 'jerry100', 'jerry@outlook.com', 'Good#1234')
-  assert user is not None
-  assert user.email == 'jerry@outlook.com'
-  user = register(user.id, 'jerry111', 'jerry@outlook.com', 'Good#1234')
-  assert user is None
+  # user = register(0, 'jerry100', 'jerry@outlook.com', 'Good#1234')
+  # assert user is not None
+  # assert user.email == 'jerry@outlook.com'
+  # user = register(user.id, 'jerry100', 'jerry@outlook.com', 'Good#1234')
+  # assert user is None
+  # user = register(0, 'jerry100', 'jerry2@outlook.com', 'Good#1234')
+  # assert user is not None
+
+  user1 = register(None, 'jerry100', 'jerry3@outlook.com', 'Good#1234')
+  user2 = register(None, 'jerry100', 'jerry4@outlook.com', 'Good#1234')
+  user3 = register(0, 'jerry100', 'jerry5@outlook.com', 'Good#1234')
+  assert user3 is not None
+  assert user1.id == user2.id - 1
+
+  
   
 
 def test_r1_3_email_helper():
