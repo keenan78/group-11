@@ -178,27 +178,27 @@ class FrontEndHomePageTest(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
 
-        # # Check if the postal code is valid
+        # Check if the postal code is valid
 
-        # # INVALID postal code --> not the correct format
-        # self.open(base_url + '/updateUser')
-        # # fill username, email, billing address and postal code
-        # self.type("#username", "Bob123")
-        # self.type("#email", "bobfill12@gmail.com")
-        # self.type("#billing_address", "141 Courtney Street")
-        # self.type("#postal_code", "LAA2C6")
-        # # click enter button
-        # self.click('input[type="submit"]')
+        # INVALID postal code --> not the correct format
+        self.open(base_url + '/updateUser')
+        # fill username, email, billing address and postal code
+        self.type("#username", "Bob123")
+        self.type("#email", "bobfill12@gmail.com")
+        self.type("#billing_address", "141 Courtney Street")
+        self.type("#postal_code", "LAA2C6")
+        # click enter button
+        self.click('input[type="submit"]')
 
-        # # INVALID postal code --> empty
-        # self.open(base_url + '/updateUser')
-        # # fill username, email, billing address and postal code
-        # self.type("#username", "Bob123")
-        # self.type("#email", "bobfill12@gmail.com")
-        # self.type("#billing_address", "141 Courtney Street")
-        # self.type("#postal_code", "")
-        # # click enter button
-        # self.click('input[type="submit"]')
+        # INVALID postal code --> empty
+        self.open(base_url + '/updateUser')
+        # fill username, email, billing address and postal code
+        self.type("#username", "Bob123")
+        self.type("#email", "bobfill12@gmail.com")
+        self.type("#billing_address", "141 Courtney Street")
+        self.type("#postal_code", "")
+        # click enter button
+        self.click('input[type="submit"]')
 
         # VALID
         self.open(base_url + '/updateUser')
