@@ -30,7 +30,6 @@ This file defines what to do BEFORE running any test cases:
 #     pass
 
 
-
 base_url = 'http://127.0.0.1:{}'.format(8081)
 
 

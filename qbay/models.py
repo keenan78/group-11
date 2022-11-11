@@ -96,7 +96,11 @@ def register(id, name, email, password):
     if len(existed) > 0:
         return None
     # check input meets the requirements
-    if (username_helper(name) is False or password_helper(password) is False or email_helper(email) is False):
+    if (
+        username_helper(name) is False or 
+        password_helper(password) is False or 
+        email_helper(email) is False
+    ):
         return None
     else:
         # r1_2  
@@ -505,6 +509,7 @@ def username_helper(username):
             return False
     else:
         return False    
+
 
 def postal_code_helper(postal_code):
     '''
