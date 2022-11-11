@@ -419,7 +419,7 @@ def email_helper(email):
         email (string): user email
     '''
     
-    regex = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{1,3}\b')
+    regex = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Z|a-z]{1,3}')
     # the email meets the requirements
     if (re.fullmatch(regex, email)): 
         return True
@@ -508,7 +508,7 @@ def username_helper(username):
             return False
     else:
         return False
-    
+
 
 def postal_code_helper(postal_code):
     '''
