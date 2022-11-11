@@ -97,14 +97,9 @@ def register(id, name, email, password):
         return None
     # check input meets the requirements
     if (
-<<<<<<< HEAD
-        username_helper(name) is False or password_helper(password) is False 
-        or email_helper(email) is False
-=======
         username_helper(name) is False or 
         password_helper(password) is False or 
         email_helper(email) is False
->>>>>>> b2568d53384d10bdc1822f3a0a8d50de9cea970f
     ):
         return None
     else:
@@ -516,9 +511,7 @@ def username_helper(username):
         return False
 
 
-
 def postal_code_helper(postal_code):
-
     '''
     R3-2
     postal code should be non-empty, alphanumeric-only, and no special 
