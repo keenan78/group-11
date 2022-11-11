@@ -324,7 +324,7 @@ def test_r1_3_email_helper():
     assert email_helper('bob_m12@gmail.com') is True
     assert email_helper('bob.ross@gmail.com') is True
     assert email_helper('kenny-wright24@yahoo.com') is True
-    assert email_helper('sam_mitchell@out.look.com') is False
+    assert email_helper('sam_mitchell@out_look.com') is False
 
 
 def test_r1_4_password_helper():
