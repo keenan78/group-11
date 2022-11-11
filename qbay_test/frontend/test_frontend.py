@@ -1,8 +1,8 @@
-from seleniumbase import BaseCase
-
-from qbay_test.conftest import base_url
 from unittest.mock import patch
+
 from qbay.models import User
+from qbay_test.conftest import base_url
+from seleniumbase import BaseCase
 
 """
 This file defines all integration tests for the frontend homepage.
@@ -11,10 +11,49 @@ This file defines all integration tests for the frontend homepage.
 
 class FrontEndHomePageTest(BaseCase):
 
-    def test1_update_listing_functionality(self, *_):
+    def test_1_login_success(self, *_):
         """
-        This is a sample front end unit test to login to home page
-        and verify if the tickets are correctly listed.
+        This is testing login input coverage.
+        """
+        # open register page
+        self.open(base_url + '/register')
+
+        # login with valid email
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!") 
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing empty email - fails
+        self.type("#email", "")
+        self.type("#password", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing email format - fails
+        self.type("#email", "studentstudent.com")
+        self.type("#password", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # login with invalid password - fail
+        self.type("#email", "student@gmail.com")
+        self.type("#password", "Student") 
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # login with a valid password - pass
+        self.type("#email", "student@gmail.com")
+        self.type("#password", "Student123!") 
+        # click enter button
+        self.click('input[type="submit"]')
+        self.open(base_url)
+
+    def test2_update_listing_functionality(self, *_):
+        """
+        This is a testing register functionality coverage.
         """
         # open register page
         self.open(base_url + '/register')
@@ -25,6 +64,112 @@ class FrontEndHomePageTest(BaseCase):
         # CORRECT PASSWORD
         self.type("#password", "Student123!") 
         # CORRECT PASSWORD2
+
+        # open register page
+        self.open(base_url + '/register')
+        
+        # FUNC TESTING FOR NAME --- FAILS
+
+        # testing empty name
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing alphanumeric name with special char
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student!!!")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing prefix space name
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "   Student")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing suffix space name
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student   ")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing name too short
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "S")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing name too long
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "StudentStudentStudentStudent")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # FUNC TESTING FOR NAME --- SUCCESS
+
+        # registering with valid email
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!") 
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # logging in with valid email
+        self.open(base_url + '/login')
+        # fill email and password
+        self.type("#email", "student@gmail.com")
+        self.type("#password", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+        
+        # open home page (success)
+        self.open(base_url)
+        
+    def test_2_register_input(self, *_):
+        """
+        This is a testing register input coverage.
+        """
+        # open register page
+        self.open(base_url + '/register')
+        
+        # INPUT TESTING FOR EMAIL --- FAILS
+
+        # testing empty email
+        self.type("#email", "")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # testing email format
+        self.type("#email", "studentstudent.com")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student123!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # INPUT TESTING FOR EMAIL --- SUCCESS
+
+        # registering with valid email
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!") 
         self.type("#password2", "Student123!")
         # click enter button
         self.click('input[type="submit"]')
@@ -32,13 +177,13 @@ class FrontEndHomePageTest(BaseCase):
         # open login page
         self.open(base_url + '/login')
         # fill email and password
-        self.type("#email", "student@gmail.com")
+        self.type("#email", "student@student.com")
         self.type("#password", "Student123!")
         # click enter button
         self.click('input[type="submit"]')
-
         # open home page (success)
         self.open(base_url)
+
         # test if correct user name is displayed
         self.assert_element("#welcome-header")
         self.assert_text("Welcome Student !", "#welcome-header")
@@ -50,8 +195,13 @@ class FrontEndHomePageTest(BaseCase):
         self.type("#description", "My house is very big you should stay here")
         self.type("#price", 100)
         self.click('input[type="submit"]')
+        
+        self.open(base_url + '/update_listing/23')
 
-        self.open(base_url + '/update_listing/28')
+    def test1_create_listing_functionality(self, *_):
+        # open create listing page
+        self.open(base_url + '/create_listing')
+
         # functionality testing for title - req. partioning
         # title has a leading space, description is fine, price is fine
         self.type("#title", " Leading space")
@@ -91,7 +241,7 @@ class FrontEndHomePageTest(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
 
-    def test2_create_listing_output(self, *_):
+    def test3_create_listing_output(self, *_):
 
         # open login page
         self.open(base_url + '/login')
@@ -100,9 +250,9 @@ class FrontEndHomePageTest(BaseCase):
         self.type("#password", "Student123!")
         # click enter button
         self.click('input[type="submit"]')
-    
+
         # open update listing page
-        self.open(base_url + '/update_listing/28')
+        self.open(base_url + '/update_listing/23')
 
         # this is unsucessful listing creation - price is invalid 
         self.type("#title", "Sucessful title")
@@ -128,10 +278,10 @@ class FrontEndHomePageTest(BaseCase):
         # open home page
         self.open(base_url)
         # output is correct - price is valid and showed on the home page
-        self.assert_element("#product_28")
-        self.assert_text("price: $200", "#product_28")
+        self.assert_element("#product_23")
+        self.assert_text("price: $200", "#product_23")
 
-    def test3_create_listing_input(self, *_):
+    def test4_create_listing_input(self, *_):
 
         # open login page
         self.open(base_url + '/login')
@@ -142,7 +292,7 @@ class FrontEndHomePageTest(BaseCase):
         self.click('input[type="submit"]')
         
         # open create listing page
-        self.open(base_url + '/update_listing/28')
+        self.open(base_url + '/update_listing/23')
 
         # input testing for description 
         # desc is empty
@@ -176,3 +326,52 @@ class FrontEndHomePageTest(BaseCase):
         self.type("#price", 100)
         # click enter button
         self.click('input[type="submit"]')
+
+    def test_3_register_output_fail(self, *_):
+        """
+        This is a test for register output coverage.
+        """
+        # open register page
+        self.open(base_url + '/register')
+
+        # OUTPUT TESTING FOR PASSWORD --- FAIL
+
+        # testing password2 matches password
+        self.type("#email", "student@gmail.com")
+        self.type("#name", "Student")
+        self.type("#password", "Student123!")
+        self.type("#password2", "Student1?")
+        # click enter button
+        self.click('input[type="submit"]')
+        # testing output (error message)
+        self.assert_element("#message")
+        self.assert_text("The passwords do not match", "#message")
+    
+    def test_4_register_output_success(self, *_):
+        """
+        This is a test for register output coverage.
+        """
+        # open register page
+        self.open(base_url + '/register')
+
+        # registering with valid email
+        self.type("#email", "student1@gmail.com")
+        self.type("#name", "Student1")
+        self.type("#password", "Student1234!") 
+        self.type("#password2", "Student1234!")
+        # click enter button
+        self.click('input[type="submit"]')
+
+        # logging in with valid email
+        self.open(base_url + '/login')
+        # fill email and password
+        self.type("#email", "student1@gmail.com")
+        self.type("#password", "Student1234!")
+        # click enter button
+        self.click('input[type="submit"]')
+        
+        # open home page (success)
+        self.open(base_url)
+        # test if correct user name is displayed
+        self.assert_element("#welcome-header")
+        self.assert_text("Welcome Student1 !", "#welcome-header")
