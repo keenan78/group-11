@@ -507,13 +507,8 @@ def username_helper(username):
         else:
             return False
     else:
-<<<<<<< HEAD
-        return False    
-
-=======
         return False
     
->>>>>>> df770b4765275dd68479bd8594bcdf111c732f6a
 
 def postal_code_helper(postal_code):
     '''
