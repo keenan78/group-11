@@ -9,8 +9,6 @@ from qbay import app
 '''
 This file defines what to do BEFORE running any test cases:
 '''
-
-
 # def pytest_sessionstart():
 #     '''
 #     Delete database file if existed. So testing can start fresh.
@@ -28,7 +26,6 @@ This file defines what to do BEFORE running any test cases:
 #     Do nothing for now
 #     '''
 #     pass
-
 
 
 base_url = 'http://127.0.0.1:{}'.format(8081)

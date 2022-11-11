@@ -96,7 +96,10 @@ def register(id, name, email, password):
     if len(existed) > 0:
         return None
     # check input meets the requirements
-    if (username_helper(name) is False or password_helper(password) is False or email_helper(email) is False):
+    if (
+        username_helper(name) is False or password_helper(password) is False 
+        or email_helper(email) is False
+    ):
         return None
     else:
         # r1_2  
@@ -416,7 +419,7 @@ def email_helper(email):
         email (string): user email
     '''
     
-    regex = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{1,3}\b')
+    regex = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Z|a-z]{1,3}')
     # the email meets the requirements
     if (re.fullmatch(regex, email)): 
         return True
@@ -504,9 +507,11 @@ def username_helper(username):
         else:
             return False
     else:
-        return False    
+        return False
+
 
 def postal_code_helper(postal_code):
+
     '''
     R3-2
     postal code should be non-empty, alphanumeric-only, and no special 

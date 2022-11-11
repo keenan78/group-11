@@ -11,13 +11,13 @@ def test_r1_7_user_register():
     '''
     Testing R1-7: If the email has been used, the operation failed.
     '''
-    user = register(1, 'user0', 'test0@test.com', 'Abcdef!')
+    user = register(None, 'user0', 'test0@test.com', 'Abcdef!')
     assert user is not None
     assert user.email == 'test0@test.com'
-    user = register(2, 'user0', 'test1@test.com', 'Abcdef!')
+    user = register(None, 'user0', 'test1@test.com', 'Abcdef!')
     assert user is not None
     assert user.email == 'test1@test.com'
-    user = register(3, 'user1', 'test0@test.com', 'Abcdef!')
+    user = register(None, 'user1', 'test0@test.com', 'Abcdef!')
     assert user is None
 
 
@@ -239,11 +239,11 @@ def test_r1_6_username_helper():
     less than 20 characters.
     '''
     user = username_helper('user123')
-    assert user is not None
+    assert user is True
     user = username_helper('testinglongerusername')
-    assert user is None
+    assert user is False
     user = username_helper('Ab')
-    assert user is None
+    assert user is False
 
 
 def test_r3_3_postal_code_helper():
@@ -304,15 +304,19 @@ def test_r1_1_register():
 
 def test_r1_2_user_id():
     '''
-    Testing R1-2: A user is uniquely identified by 
-    his/her user id - automatically generated.
+    and space allowed only if it is not as the prefix or suffix.
     '''
-    user1 = register(None, 'jerry100', 'jerry3@outlook.com', 'Good#1234')
-    user2 = register(None, 'jerry100', 'jerry4@outlook.com', 'Good#1234')
-    user3 = register(0, 'jerry100', 'jerry5@outlook.com', 'Good#1234')
-    assert user3 is not None
-    assert user1.id == user2.id - 1
-  
+    username = username_helper('jasondawn123')
+    assert username is True
+    username = username_helper('bob rawn')
+    assert username is True
+    username = username_helper('john henry')
+    assert username is True
+    username = username_helper(' huh-123')
+    assert username is False
+    username = username_helper('')
+    assert username is False
+
 
 def test_r1_3_email_helper():
     '''
@@ -346,15 +350,15 @@ def test_r1_5_username_helper():
     and space allowed only if it is not as the prefix or suffix.
     '''
     username = username_helper('jasondawn123')
-    assert username is not None
+    assert username is True
     username = username_helper('bob rawn')
-    assert username is not None
+    assert username is True
     username = username_helper('john henry')
-    assert username is not None
+    assert username is True
     username = username_helper(' huh-123')
-    assert username is None
+    assert username is False
     username = username_helper('')
-    assert username is None
+    assert username is False
 
 
 def test_r3_2_postal_code_helper():
