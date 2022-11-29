@@ -148,7 +148,7 @@ def register_post():
         return redirect('/login')
 
 
-@app.route('/create_listing', methods=['GET'])
+@app.route('/createlisting', methods=['GET'])
 def create_listing_get():
     # templates are stored in the templates folder
     email = session['logged_in']
@@ -156,7 +156,7 @@ def create_listing_get():
     return render_template('create_listing.html', message='', user=user)
 
 
-@app.route('/create_listing', methods=['POST'])
+@app.route('/createlisting', methods=['POST'])
 def create_listing_post():
     title = request.form.get('title')
     desc = request.form.get('description')
