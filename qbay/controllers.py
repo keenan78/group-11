@@ -111,7 +111,7 @@ def home(user):
         for booked in all_bookings:
             booking.append({
                 "booked_start_date": booked.booked_start_date,
-                "booked_end_date": booked.booked_end_date, 
+                "booked_end_date": booked.booked_end_date
             })
     else:
         booking = [{"booked_start_date": "", "booked_end_date": ""}]
