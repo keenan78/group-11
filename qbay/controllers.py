@@ -273,7 +273,7 @@ def update_post():
     email = session['logged_in']
     user = User.query.filter_by(email=email).one_or_none()
 
-    # calling update functionx
+    # calling update function
     user = update_user(
         user.id, username, email_new, billing_address, postal_code
     )
