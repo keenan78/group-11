@@ -195,7 +195,7 @@ def create_booking_get():
     return render_template('create_booking.html', message='', user=user)
 
 
-@app.route('/create_listing', methods=['POST'])
+@app.route('/create_booking', methods=['POST'])
 def create_booking_post():
     booked_start_date = request.form.get('booked_start_date')
     booked_end_date = request.form.get('booked_end_date')
